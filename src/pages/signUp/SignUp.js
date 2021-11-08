@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
   return (
@@ -14,7 +15,7 @@ export default function SignUp() {
           <StyledInput />
           <StyledInput />
           <button>Sign Up</button>
-          <a href="#">Switch back to log in</a>
+          <Link to="/sign-in">Switch back to log in</Link>
         </StyledForm>
       </InfoContainer>
     </SignUpContainer>
