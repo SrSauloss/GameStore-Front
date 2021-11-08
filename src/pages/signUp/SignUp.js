@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
+import { signUp } from "../../services/API";
 
 export default function SignUp() {
   const [user, setUser] = useState({
@@ -11,6 +12,48 @@ export default function SignUp() {
     password: "",
     confirmPass: "",
   });
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const history = useHistory();
+
+  const register = (e) => {
+    e.preventDefault();
+
+    if (user.password !== user.confirmPass) {
+      setPasswordError(true);
+      return;
+    }
+
+    const body = {
+      email: user.email,
+      name: user.name,
+      cpf: user.cpf,
+      phone: user.phone,
+      password: user.password,
+    };
+
+    signUp({ body })
+      .then((res) => {
+        setUser({
+          email: "",
+          name: "",
+          cpf: "",
+          phone: "",
+          password: "",
+          confirmPass: "",
+        });
+
+        history.push("/sign-in");
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          setEmailError(true);
+        }
+        if (err.response.status === 403) {
+          alert("Campos inválidos!");
+        }
+      });
+  };
 
   return (
     <SignUpContainer>
@@ -19,7 +62,7 @@ export default function SignUp() {
         <h2>The best and most affordable games on all internet</h2>
       </Banner>
       <InfoContainer>
-        <StyledForm>
+        <StyledForm onSubmit={register}>
           <StyledInput
             placeholder="e-mail"
             type="email"
@@ -27,8 +70,9 @@ export default function SignUp() {
             onChange={(e) => setUser({ ...user, email: e.target.value })}
             required
           />
+          {emailError ? <p>Digite um e-mail válido</p> : ""}
           <StyledInput
-            placeholder="name"
+            placeholder="nome"
             type="text"
             value={user.name}
             onChange={(e) => setUser({ ...user, name: e.target.value })}
@@ -36,38 +80,44 @@ export default function SignUp() {
           />
           <StyledInput
             placeholder="cpf"
-            type="text"
+            type="tel"
             pattern="[0-9]{11}"
+            title="cpf deve conter 11 números"
             value={user.cpf}
             onChange={(e) => setUser({ ...user, cpf: e.target.value })}
             required
           />
           <StyledInput
-            placeholder="phone"
+            placeholder="telefone"
             type="tel"
+            pattern="[0-9]{8,}"
+            title="Mínimo 8 dígitos"
             value={user.phone}
-            title="@alga"
-            pattern="[0-9]"
             onChange={(e) => setUser({ ...user, phone: e.target.value })}
             required
           />
           <StyledInput
-            placeholder="password"
+            placeholder="senha"
             type="password"
+            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+            title="Mínimo 8 dígitos, uma letra, um número e um caractere especial"
             value={user.password}
-            title="%"
             onChange={(e) => setUser({ ...user, password: e.target.value })}
             required
           />
           <StyledInput
-            placeholder="confirm password"
+            placeholder="confirme senha"
             type="password"
             value={user.confirmPass}
-            title="%"
             onChange={(e) => setUser({ ...user, confirmPass: e.target.value })}
             required
           />
-          <button>Sign Up</button>
+          {passwordError ? (
+            <p>Senha não corresponde com a do outro campo</p>
+          ) : (
+            ""
+          )}
+          <button type="submit">Sign Up</button>
           <Link to="/sign-in">Switch back to log in</Link>
         </StyledForm>
       </InfoContainer>
@@ -80,6 +130,11 @@ const SignUpContainer = styled.div`
   height: 100%;
   display: grid;
   grid-template-columns: 2fr 1fr;
+
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Banner = styled.div`
@@ -103,6 +158,20 @@ const Banner = styled.div`
     font-family: "Oswald", sans-serif;
     font-size: 43px;
   }
+
+  @media (max-width: 900px) {
+    height: 175px;
+    align-items: center;
+
+    h1 {
+      font-size: 76px;
+    }
+
+    h2 {
+      font-size: 23px;
+      text-align: center;
+    }
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -111,6 +180,7 @@ const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-bottom: 20px;
 `;
 
 const StyledForm = styled.form`
@@ -150,6 +220,12 @@ const StyledForm = styled.form`
         opacity: 0.8;
       }
     }
+  }
+
+  p {
+    margin-top: -8px;
+    color: #c12d1f;
+    width: 330px;
   }
 `;
 
