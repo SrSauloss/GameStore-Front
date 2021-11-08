@@ -1,7 +1,17 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function SignUp() {
+  const [user, setUser] = useState({
+    email: "",
+    name: "",
+    cpf: "",
+    phone: "",
+    password: "",
+    confirmPass: "",
+  });
+
   return (
     <SignUpContainer>
       <Banner>
@@ -10,10 +20,53 @@ export default function SignUp() {
       </Banner>
       <InfoContainer>
         <StyledForm>
-          <StyledInput />
-          <StyledInput />
-          <StyledInput />
-          <StyledInput />
+          <StyledInput
+            placeholder="e-mail"
+            type="email"
+            value={user.email}
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            required
+          />
+          <StyledInput
+            placeholder="name"
+            type="text"
+            value={user.name}
+            onChange={(e) => setUser({ ...user, name: e.target.value })}
+            required
+          />
+          <StyledInput
+            placeholder="cpf"
+            type="text"
+            pattern="[0-9]{11}"
+            value={user.cpf}
+            onChange={(e) => setUser({ ...user, cpf: e.target.value })}
+            required
+          />
+          <StyledInput
+            placeholder="phone"
+            type="tel"
+            value={user.phone}
+            title="@alga"
+            pattern="[0-9]"
+            onChange={(e) => setUser({ ...user, phone: e.target.value })}
+            required
+          />
+          <StyledInput
+            placeholder="password"
+            type="password"
+            value={user.password}
+            title="%"
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
+            required
+          />
+          <StyledInput
+            placeholder="confirm password"
+            type="password"
+            value={user.confirmPass}
+            title="%"
+            onChange={(e) => setUser({ ...user, confirmPass: e.target.value })}
+            required
+          />
           <button>Sign Up</button>
           <Link to="/sign-in">Switch back to log in</Link>
         </StyledForm>
