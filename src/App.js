@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SignUp from "./pages/signUp/SignUp";
 import GlobalStyle from "./shared/GlobalStyle";
 
@@ -6,11 +6,11 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <Routes>
+      <Switch>
         <Route exact path="/sign-up">
           <SignUp />
         </Route>
-      </Routes>
+      </Switch>
     </BrowserRouter>
   );
 }
