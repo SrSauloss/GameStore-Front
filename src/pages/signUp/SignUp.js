@@ -1,7 +1,13 @@
-import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { signUp } from "../../services/API";
+import {
+  SignUpContainer,
+  Banner,
+  InfoContainer,
+  StyledForm,
+} from "../../shared/SignInUpStyle";
+import Loader from "react-loader-spinner";
 
 export default function SignUp() {
   const [user, setUser] = useState({
@@ -13,14 +19,22 @@ export default function SignUp() {
     confirmPass: "",
   });
   const [emailError, setEmailError] = useState(false);
+  const [cpfError, setCpfError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const register = (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    setEmailError(false);
+    setCpfError(false);
+    setPasswordError(false);
 
     if (user.password !== user.confirmPass) {
       setPasswordError(true);
+      setLoading(false);
       return;
     }
 
@@ -42,16 +56,22 @@ export default function SignUp() {
           password: "",
           confirmPass: "",
         });
+        setLoading(false);
 
         history.push("/sign-in");
       })
       .catch((err) => {
         if (err.response.status === 409) {
-          setEmailError(true);
+          if (err.response.data === "Invalid email") {
+            setEmailError(true);
+          } else {
+            setCpfError(true);
+          }
         }
         if (err.response.status === 403) {
           alert("Campos inválidos!");
         }
+        setLoading(false);
       });
   };
 
@@ -62,183 +82,68 @@ export default function SignUp() {
         <h2>The best and most affordable games on all internet</h2>
       </Banner>
       <InfoContainer>
-        <StyledForm onSubmit={register}>
-          <StyledInput
+        <StyledForm onSubmit={register} loading={loading}>
+          <input
             placeholder="e-mail"
             type="email"
             value={user.email}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
             required
           />
-          {emailError ? <p>Digite um e-mail válido</p> : ""}
-          <StyledInput
-            placeholder="nome"
+          {emailError ? <p>Invalid email</p> : ""}
+          <input
+            placeholder="name"
             type="text"
             value={user.name}
             onChange={(e) => setUser({ ...user, name: e.target.value })}
             required
           />
-          <StyledInput
+          <input
             placeholder="cpf"
             type="tel"
             pattern="[0-9]{11}"
-            title="cpf deve conter 11 números"
+            title="cpf must contain 11 numbers"
             value={user.cpf}
             onChange={(e) => setUser({ ...user, cpf: e.target.value })}
             required
           />
-          <StyledInput
-            placeholder="telefone"
+          {cpfError ? <p>Invalid cpf</p> : ""}
+          <input
+            placeholder="phone"
             type="tel"
             pattern="[0-9]{8,}"
-            title="Mínimo 8 dígitos"
+            title="Minimum 8 digits"
             value={user.phone}
             onChange={(e) => setUser({ ...user, phone: e.target.value })}
             required
           />
-          <StyledInput
-            placeholder="senha"
+          <input
+            placeholder="password"
             type="password"
-            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
-            title="Mínimo 8 dígitos, uma letra, um número e um caractere especial"
+            pattern="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}$"
+            title="Minimum eight characters, at least one letter, one number and one special character"
             value={user.password}
             onChange={(e) => setUser({ ...user, password: e.target.value })}
             required
           />
-          <StyledInput
-            placeholder="confirme senha"
+          <input
+            placeholder="confirm password"
             type="password"
             value={user.confirmPass}
             onChange={(e) => setUser({ ...user, confirmPass: e.target.value })}
             required
           />
-          {passwordError ? (
-            <p>Senha não corresponde com a do outro campo</p>
-          ) : (
-            ""
-          )}
-          <button type="submit">Sign Up</button>
+          {passwordError ? <p>Password does not match</p> : ""}
+          <button type="submit">
+            {loading ? (
+              <Loader type="ThreeDots" color="#FFFFFF" height={13} width={51} />
+            ) : (
+              "Sign Up"
+            )}
+          </button>
           <Link to="/sign-in">Switch back to log in</Link>
         </StyledForm>
       </InfoContainer>
     </SignUpContainer>
   );
 }
-
-const SignUpContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-
-  @media (max-width: 900px) {
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
-const Banner = styled.div`
-  height: 100vh;
-  background-color: #151515;
-  font-weight: 700;
-  box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 15%;
-
-  h1 {
-    font-size: 106px;
-    font-family: "Passion One", cursive;
-  }
-
-  h2 {
-    font-family: "Oswald", sans-serif;
-    font-size: 43px;
-  }
-
-  @media (max-width: 900px) {
-    height: 175px;
-    align-items: center;
-
-    h1 {
-      font-size: 76px;
-    }
-
-    h2 {
-      font-size: 23px;
-      text-align: center;
-    }
-  }
-`;
-
-const InfoContainer = styled.div`
-  height: 100%;
-  background-color: #333333;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-bottom: 20px;
-`;
-
-const StyledForm = styled.form`
-  display: grid;
-  gap: 11px;
-  justify-content: center;
-  margin-top: 40px;
-
-  button {
-    width: 330px;
-    height: 55px;
-    background: ${(props) => (props.isLoading ? "#569bf5" : "#1877F2")};
-    border: none;
-    border-radius: 6px;
-    font-family: "Oswald", sans-serif;
-    font-weight: bold;
-    font-size: 22px;
-    line-height: 33px;
-    color: #ffffff;
-    :hover {
-      opacity: 0.8;
-    }
-    :active {
-      transform: translateY(-3px);
-    }
-  }
-
-  a {
-    font-family: "Lato", sans-serif;
-    font-size: 20px;
-    color: #ffffff;
-    margin-top: 14px;
-    text-align: center;
-    text-decoration: underline;
-    .switch-sign {
-      :hover {
-        opacity: 0.8;
-      }
-    }
-  }
-
-  p {
-    margin-top: -8px;
-    color: #c12d1f;
-    width: 330px;
-  }
-`;
-
-const StyledInput = styled.input`
-  width: 330px;
-  height: 55px;
-  border: none;
-  background: #ffffff;
-  border-radius: 6px;
-  font-family: "Oswald", sans-serif;
-  font-weight: bold;
-  font-size: 22px;
-  line-height: 33px;
-  color: #9f9f9f;
-  padding-left: 17px;
-`;
