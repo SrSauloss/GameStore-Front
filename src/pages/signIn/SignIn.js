@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { signIn } from "../../services/API";
-import Loader from "react-loader-spinner";
 import {
   Container,
   Banner,
   InfoContainer,
   StyledForm,
 } from "../../shared/SignInUpStyle";
+import Loader from "react-loader-spinner";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
