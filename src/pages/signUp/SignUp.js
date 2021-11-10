@@ -2,7 +2,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { signUp } from "../../services/API";
 import {
-  SignUpContainer,
+  Container,
   Banner,
   InfoContainer,
   StyledForm,
@@ -76,7 +76,7 @@ export default function SignUp() {
   };
 
   return (
-    <SignUpContainer>
+    <Container>
       <Banner>
         <h1>GameStore</h1>
         <h2>The best and most affordable games on all internet</h2>
@@ -144,6 +144,6 @@ export default function SignUp() {
           <Link to="/sign-in">Switch back to log in</Link>
         </StyledForm>
       </InfoContainer>
-    </SignUpContainer>
+    </Container>
   );
 }

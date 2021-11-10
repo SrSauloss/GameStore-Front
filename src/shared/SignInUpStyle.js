@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const SignUpContainer = styled.div`
+const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: grid;
   grid-template-columns: 2fr 1fr;
 
@@ -56,6 +56,20 @@ const InfoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-bottom: 20px;
+
+  span {
+    width: 330px;
+    height: 30px;
+    margin-bottom: -30px;
+    background-color: #ffffff;
+    align-self: center;
+    text-align: center;
+    border-radius: 6px;
+    color: #c12d1f;
+    font-family: "Oswald", sans-serif;
+    font-size: 25px;
+    opacity: 0.8;
+  }
 `;
 
 const StyledForm = styled.form`
@@ -125,4 +139,4 @@ const StyledForm = styled.form`
   }
 `;
 
-export { SignUpContainer, Banner, InfoContainer, StyledForm };
+export { Container, Banner, InfoContainer, StyledForm };

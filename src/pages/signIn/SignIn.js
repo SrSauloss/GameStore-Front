@@ -3,15 +3,16 @@ import { Link, useHistory } from "react-router-dom";
 import { signIn } from "../../services/API";
 import Loader from "react-loader-spinner";
 import {
-  SignUpContainer,
+  Container,
   Banner,
   InfoContainer,
   StyledForm,
 } from "../../shared/SignInUpStyle";
 
-export default function Login() {
+export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(false);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -35,23 +36,19 @@ export default function Login() {
         history.push("/");
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          alert("Usuário não encontrado. Email ou senha inválidos");
-        }
-        if (err.response.status === 403) {
-          alert("Campos inválidos!");
-        }
+        setLoginError(true);
         setLoading(false);
       });
   };
 
   return (
-    <SignUpContainer>
+    <Container>
       <Banner>
         <h1>GameStore</h1>
         <h2>The best and most affordable games on all internet</h2>
       </Banner>
       <InfoContainer>
+        {loginError ? <span>Invalid e-mail or password!</span> : ""}
         <StyledForm onSubmit={login} loading={loading}>
           <input
             placeholder="e-mail"
@@ -74,9 +71,9 @@ export default function Login() {
               "Sign In"
             )}
           </button>
-          <Link to="/sign-in">Switch back to log in</Link>
+          <Link to="/sign-up">First time? Create an account!</Link>
         </StyledForm>
       </InfoContainer>
-    </SignUpContainer>
+    </Container>
   );
 }
