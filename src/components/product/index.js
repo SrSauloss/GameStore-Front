@@ -28,13 +28,12 @@ function Product({ name, img, price }) {
     }
   }
 
+  console.log(products);
+
   return (
     <Card>
       <h2>{name}</h2>
-      <Image
-        src="https://www.callofduty.com/content/dam/atvi/callofduty/cod-touchui/blog/hero/vgd/VGD_SEE_THEM_RISE.jpg"
-        alt="game"
-      />
+      <Image src={img} alt={name} />
       <BoxFooter>
         <h3>Price: R$ ${price}</h3>
         <BoxAdd>

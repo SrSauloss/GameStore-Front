@@ -5,6 +5,7 @@ const Container = styled.div`
   height: 100vh;
   max-height: 100%;
   background-color: #333333;
+
   @media (max-width: 900px) {
     display: flex;
     flex-direction: column;
@@ -12,14 +13,18 @@ const Container = styled.div`
 `;
 
 const BoxProducts = styled.div`
-  background: yellow;
-  width: 76%;
-  margin-left: 20px;
+  width: 76.3%;
+  margin: 40px 0 0 20px;
   display: flex;
   flex-wrap: wrap;
   overflow-y: auto;
   height: 95vh;
-  // min-height: 90%;
+  scrollbar-width: none;
+
+  @media (max-width: 900px) {
+    width: 89%;
+    height: auto;
+  }
 `;
 
 export { Container, BoxProducts };
