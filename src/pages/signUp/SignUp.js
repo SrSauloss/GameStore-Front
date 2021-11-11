@@ -61,7 +61,6 @@ export default function SignUp() {
         history.push("/sign-in");
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 409) {
           if (err.response.data === "Invalid email") {
             setEmailError(true);

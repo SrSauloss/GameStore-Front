@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         line-height: 1;
+        background-color: #333333;
     }
     * {
         box-sizing: border-box;

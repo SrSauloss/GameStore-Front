@@ -4,7 +4,6 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   max-height: 100%;
-  background-color: #333333;
 
   @media (max-width: 900px) {
     display: flex;
@@ -22,7 +21,7 @@ const BoxProducts = styled.div`
   scrollbar-width: none;
 
   @media (max-width: 900px) {
-    width: 89%;
+    width: 92%;
     height: auto;
   }
 `;

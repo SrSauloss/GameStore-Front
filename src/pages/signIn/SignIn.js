@@ -33,7 +33,7 @@ export default function SignIn() {
         setEmail("");
         setPassword("");
         setLoading(false);
-        history.push("/");
+        history.push("/products");
       })
       .catch((err) => {
         setLoginError(true);
