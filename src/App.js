@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SignUp from "./pages/signUp/SignUp";
 import GlobalStyle from "./shared/GlobalStyle";
 import SignIn from "./pages/signIn/SignIn";
+import Products from "./pages/products";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         </Route>
         <Route exact path="/sign-in">
           <SignIn />
+        </Route>
+        <Route exact path="/products">
+          <Products />
         </Route>
       </Switch>
     </BrowserRouter>
