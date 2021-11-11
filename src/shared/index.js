@@ -13,12 +13,13 @@ const Container = styled.div`
 
 const BoxProducts = styled.div`
   background: yellow;
-  width: 80%;
+  width: 76%;
   margin-left: 20px;
   display: flex;
   flex-wrap: wrap;
-  //  height: 100vh;
-  min-height: 100%;
+  overflow-y: auto;
+  height: 95vh;
+  // min-height: 90%;
 `;
 
 export { Container, BoxProducts };
