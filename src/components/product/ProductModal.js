@@ -12,7 +12,7 @@ export default function ProductModal({ id, gameModal, setGameModal, token }) {
   const [count, setCount] = useState(0);
   const [game, setGame] = useState({});
   const { products, setProducts } = useContext(ProductsContext);
-
+  console.log(products);
   const customStyles = {
     overlay: { background: "rgba(255, 255, 255, 0.9)" },
     content: {
