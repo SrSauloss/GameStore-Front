@@ -26,6 +26,7 @@ const Infos = styled.div`
   h6 {
     font-size: 25px;
     text-align: center;
+    cursor: pointer;
   }
   p {
     color: ${(props) => props.color};
