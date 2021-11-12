@@ -2,18 +2,23 @@ import { AiOutlineRollback } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { ProductsContext } from "../../contexts/ProductsContext";
-import { ContainerCart, InfoCart, BoxCart } from "../../shared";
+import { ContainerCart, InfoCart, BoxCart, ButtonsCart } from "../../shared";
 import CardCart from "../../components/cardCart";
 import Footer from "../../components/footer";
 
 function Cart() {
-  const { products } = useContext(ProductsContext);
+  const { products, setProducts } = useContext(ProductsContext);
 
   const history = useHistory();
 
   function back(e) {
     e.preventDefault();
     history.goBack();
+  }
+
+  function clearCart(e) {
+    e.preventDefault();
+    setProducts([]);
   }
 
   return (
@@ -26,8 +31,8 @@ function Cart() {
         <ContainerCart>
           <BoxCart>
             {products.length > 0 ? (
-              products.map((product, index) => (
-                <>
+              <>
+                {products.map((product, index) => (
                   <CardCart
                     key={index}
                     id={product.id}
@@ -37,8 +42,12 @@ function Cart() {
                     stokc={product.stock}
                     amount={product.amount}
                   />
-                </>
-              ))
+                ))}
+                <ButtonsCart>
+                  <button>finalize order</button>
+                  <button onClick={clearCart}>clear cart</button>
+                </ButtonsCart>
+              </>
             ) : (
               <h6>You haven't added anything to your cart yet :(</h6>
             )}

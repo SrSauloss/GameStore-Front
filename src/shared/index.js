@@ -32,7 +32,7 @@ const ContainerCart = styled.div`
   display: flex;
   justify-content: center;
   color: #fff;
-
+  position: relative;
   @media (max-width: 900px) {
     h1 {
       font-size: 30px;
@@ -44,6 +44,8 @@ const BoxCart = styled.div`
   width: 90%;
   display: flex;
   flex-wrap: wrap;
+
+  margin-bottom: 60px;
   h6 {
     margin: auto;
     width: 300px;
@@ -71,4 +73,37 @@ const InfoCart = styled.div`
   }
 `;
 
-export { Container, BoxProducts, ContainerCart, InfoCart, BoxCart };
+const ButtonsCart = styled.div`
+  width: 270px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  left: 85px;
+  margin-bottom: 5px;
+  button:first-child {
+    background: green;
+  }
+  button {
+    width: 120px;
+    font-family: "Oswald", sans-serif;
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background: red;
+  }
+  @media (max-width: 900px) {
+    left: 14%;
+  }
+`;
+
+export {
+  Container,
+  BoxProducts,
+  ContainerCart,
+  InfoCart,
+  BoxCart,
+  ButtonsCart,
+};
