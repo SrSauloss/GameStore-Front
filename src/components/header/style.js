@@ -13,6 +13,13 @@ const Container = styled.div`
     font-size: 40px;
     font-family: "Passion One", cursive;
   }
+  @media (max-width: 900px) {
+    height: 70px;
+
+    h1 {
+      font-size: 30px;
+    }
+  }
 `;
 
 const Infos = styled.div`
@@ -23,18 +30,18 @@ const Infos = styled.div`
   top: 0;
   height: 100%;
   font-family: "Oswald", sans-serif;
+  font-size: 25px;
+
   h6 {
-    font-size: 25px;
     text-align: center;
     cursor: pointer;
   }
   p {
     color: ${(props) => props.color};
-    font-size: 25px;
     margin: 0 10px 0 2px;
   }
   @media (max-width: 900px) {
-    padding-bottom: 10px;
+    font-size: 20px;
   }
 `;
 
