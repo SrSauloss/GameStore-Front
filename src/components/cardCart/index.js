@@ -10,13 +10,12 @@ function CardCart({ name, price, stock, amount, img }) {
     setProducts(products.filter((product) => product.name !== name));
   }
 
-  console.log(products);
   return (
     <Card>
       <img src={img} alt={name} />
       <InfosCard>
         <p>Title: {name}</p>
-        <p>Price: {price}</p>
+        <p>Price: R$ {price}</p>
         <p>Amount: {amount}</p>
         <button onClick={deleteProduct}>Excluir produto</button>
       </InfosCard>

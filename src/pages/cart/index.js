@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import { ProductsContext } from "../../contexts/ProductsContext";
-import { Container, Info, Box } from "./style";
-import CardCart from "../../components/cardCart";
 import { AiOutlineRollback } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import { ProductsContext } from "../../contexts/ProductsContext";
+import { ContainerCart, InfoCart, BoxCart } from "../../shared";
+import CardCart from "../../components/cardCart";
 import Footer from "../../components/footer";
 
 function Cart() {
@@ -16,24 +16,28 @@ function Cart() {
   }
   return (
     <>
-      <Info>
+      <InfoCart>
         <h1>Itens Cart</h1>
         <AiOutlineRollback size="27" onClick={back} />
-      </Info>
-      <Container>
-        <Box>
-          {products.map((product, index) => (
-            <CardCart
-              key={index}
-              name={product.name}
-              price={product.price}
-              img={product.image}
-              stokc={product.stock}
-              amount={product.amount}
-            />
-          ))}
-        </Box>
-      </Container>
+      </InfoCart>
+      <ContainerCart>
+        <BoxCart>
+          {products.length > 0 ? (
+            products.map((product, index) => (
+              <CardCart
+                key={index}
+                name={product.name}
+                price={product.price}
+                img={product.image}
+                stokc={product.stock}
+                amount={product.amount}
+              />
+            ))
+          ) : (
+            <h6>You haven't added anything to your cart yet :(</h6>
+          )}
+        </BoxCart>
+      </ContainerCart>
       <Footer />
     </>
   );

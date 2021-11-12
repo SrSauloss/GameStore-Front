@@ -26,4 +26,50 @@ const BoxProducts = styled.div`
   }
 `;
 
-export { Container, BoxProducts };
+const ContainerCart = styled.div`
+  width: 100%;
+  min-height: 500px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+
+  @media (max-width: 900px) {
+    h1 {
+      font-size: 30px;
+    }
+  }
+`;
+
+const BoxCart = styled.div`
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  h6 {
+    margin: auto;
+    width: 300px;
+    font-family: "Oswald", sans-serif;
+    font-size: 36px;
+  }
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+`;
+
+const InfoCart = styled.div`
+  width: 100%;
+  background: #000;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 0 20px;
+  h1 {
+    font-size: 40px;
+    font-family: "Passion One", cursive;
+  }
+`;
+
+export { Container, BoxProducts, ContainerCart, InfoCart, BoxCart };

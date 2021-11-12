@@ -4,12 +4,14 @@ import { SubtractCircle } from "grommet-icons";
 import { Container, BoxAdd } from "./style";
 import { ProductsContext } from "../../contexts/ProductsContext";
 
-function AddBox({ name, img, price, stock, amount }) {
-  console.log(amount);
-  const [count, setCount] = useState(amount || 0);
-  console.log(count);
+function AddBox({ name, img, price, stock }) {
   const { products, setProducts } = useContext(ProductsContext);
-  console.log(products);
+  const prod = products.filter((product) => {
+    return product.name === name;
+  });
+
+  const amount = prod.length > 0 ? prod[0].amount : 0;
+  const [count, setCount] = useState(amount);
 
   function increment() {
     setCount(count + 1);

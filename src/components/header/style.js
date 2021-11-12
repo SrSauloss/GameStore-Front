@@ -14,7 +14,7 @@ const Container = styled.div`
     font-family: "Passion One", cursive;
   }
   @media (max-width: 900px) {
-    height: 70px;
+    height: 120px;
 
     h1 {
       font-size: 30px;
