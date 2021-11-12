@@ -1,25 +1,29 @@
 import { Card, InfosCard } from "./style";
-import { useContext } from "react";
-import { ProductsContext } from "../../contexts/ProductsContext";
+import { useState } from "react";
+import ProductModal from "../product/ProductModal";
 
-function CardCart({ name, price, stock, amount, img }) {
-  const { products, setProducts } = useContext(ProductsContext);
-
-  function deleteProduct(e) {
-    e.preventDefault();
-    setProducts(products.filter((product) => product.name !== name));
-  }
+function CardCart({ name, price, id, amount, img }) {
+  const [gameModal, setGameModal] = useState(false);
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <Card>
-      <img src={img} alt={name} />
-      <InfosCard>
-        <p>Title: {name}</p>
-        <p>Price: R$ {price}</p>
-        <p>Amount: {amount}</p>
-        <button onClick={deleteProduct}>Excluir produto</button>
-      </InfosCard>
-    </Card>
+    <>
+      <Card onClick={() => setGameModal(true)}>
+        <img src={img} alt={name} />
+        <InfosCard>
+          <p>Title: {name}</p>
+          <p>Price: R$ {price}</p>
+          <p>Amount: {amount}</p>
+        </InfosCard>
+      </Card>
+      <ProductModal
+        id={id}
+        gameModal={gameModal}
+        setGameModal={setGameModal}
+        token={userInfo.token}
+        amount={amount}
+      />
+    </>
   );
 }
 

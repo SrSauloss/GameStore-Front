@@ -18,7 +18,6 @@ const BoxProducts = styled.div`
   flex-wrap: wrap;
   overflow-y: auto;
   height: 95vh;
-  scrollbar-width: none;
 
   @media (max-width: 900px) {
     width: 92%;

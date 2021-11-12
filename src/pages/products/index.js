@@ -5,9 +5,14 @@ import { listProducts } from "../../services/API";
 import Loader from "react-loader-spinner";
 import Footer from "../../components/footer";
 import Top from "../../components/header";
+import { useHistory } from "react-router-dom";
 
 function Products() {
   const [games, setGames] = useState(null);
+  const userInfo = JSON.parse(localStorage.getItem("user"));
+  const history = useHistory();
+
+  if (!userInfo) history.push("/sign-in");
 
   function loadGames() {
     listProducts()
@@ -30,10 +35,12 @@ function Products() {
             games.map((game) => (
               <Product
                 key={game.id}
+                id={game.id}
                 name={game.name}
                 img={game.image}
                 price={game.price}
                 stock={game.stock}
+                token={userInfo.token}
               />
             ))
           ) : (

@@ -30,11 +30,8 @@ const Image = styled.img`
 `;
 
 const BoxFooter = styled.div`
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  display: flex;
+  justify-content: space-between;
   h3 {
     font-family: "Oswald", sans-serif;
     font-size: 15px;
@@ -44,10 +41,44 @@ const BoxFooter = styled.div`
   h3:last-child {
     margin: 0 5px 5px 0;
   }
+  button {
+    display: flex;
+    width: 120px;
+    height: 31px;
+    background: #1877f2;
+    border: none;
+    border-radius: 6px;
+    font-family: "Oswald", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 15px;
+    color: #ffffff;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      display: block;
+      padding-right: 5px;
+      margin-top: -2px;
+    }
+
+    :hover {
+      opacity: 0.8;
+    }
+    :active {
+      transform: translateY(-3px);
+    }
+  }
   @media (max-width: 900px) {
     font-size: 12px;
     justify-content: space-between;
     h3 {
+      font-size: 12px;
+    }
+    button {
+      width: 50px;
+      height: 31px;
       font-size: 12px;
     }
   }

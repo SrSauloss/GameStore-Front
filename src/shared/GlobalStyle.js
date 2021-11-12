@@ -60,6 +60,9 @@ const GlobalStyle = createGlobalStyle`
     a {
         text-decoration: none;
     }
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export default GlobalStyle;

@@ -23,6 +23,8 @@ const InfosCard = styled.div`
   justify-content: space-between;
   margin-left: 10px;
   padding: 5px 0 5px 0;
+  font-family: "Oswald", sans-serif;
+  font-size: 20px;
 
   button {
     width: 120px;
