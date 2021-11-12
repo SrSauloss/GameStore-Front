@@ -11,6 +11,7 @@ function Top() {
   function logout(e) {
     e.preventDefault();
     setProducts([]);
+    localStorage.removeItem("user");
     history.push("/sign-in");
   }
 
