@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 60px;
-  background: #000;
+  height: 100%;
+  height: 100vh;
+  background: #333;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   color: #fff;
   position: relative;
   h1 {
@@ -14,8 +15,6 @@ const Container = styled.div`
     font-family: "Passion One", cursive;
   }
   @media (max-width: 900px) {
-    height: 70px;
-
     h1 {
       font-size: 30px;
     }

@@ -5,6 +5,7 @@ import SignIn from "./pages/signIn/SignIn";
 import Products from "./pages/products";
 import { ProductsContext } from "./contexts/ProductsContext";
 import { useState } from "react";
+import Cart from "./pages/cart";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route exact path="/products">
             <Products />
+          </Route>
+          <Route exact path="/cart">
+            <Cart />
           </Route>
         </Switch>
       </ProductsContext.Provider>

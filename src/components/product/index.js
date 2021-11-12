@@ -13,7 +13,7 @@ function Product({ name, img, price, stock }) {
     let modify = products.filter((product) => product.name !== name);
     setProducts([
       ...modify,
-      { name, price: price.substr(1), amount: count + 1 },
+      { name, price: price.substr(1), image: img, amount: count + 1 },
     ]);
   }
 
@@ -28,7 +28,7 @@ function Product({ name, img, price, stock }) {
       let modify = products.filter((product) => product.name !== name);
       setProducts([
         ...modify,
-        { name, price: price.substr(1), amount: count - 1 },
+        { name, price: price.substr(1), image: img, amount: count - 1 },
       ]);
       setCount(count - 1);
     }
