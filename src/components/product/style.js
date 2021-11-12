@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Card = styled.div`
   background: #000;
-  width: 250px;
+  width: 245px;
   height: 360px;
   border-radius: 5px;
   margin: 0 0 5px 5px;
@@ -53,15 +53,4 @@ const BoxFooter = styled.div`
   }
 `;
 
-const BoxAdd = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 5px;
-  p {
-    color: #fff;
-    min-width: 20px;
-    text-align: center;
-  }
-`;
-
-export { Card, Image, BoxFooter, BoxAdd };
+export { Card, Image, BoxFooter };
