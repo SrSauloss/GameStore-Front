@@ -30,6 +30,7 @@ function Products() {
             games.map((game) => (
               <Product
                 key={game.id}
+                id={game.id}
                 name={game.name}
                 img={game.image}
                 price={game.price}
