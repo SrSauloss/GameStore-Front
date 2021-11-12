@@ -8,11 +8,7 @@ import ProductModal from "./ProductModal";
 function Product({ id, name, img, price, stock }) {
   const [count, setCount] = useState(0);
   const { products, setProducts } = useContext(ProductsContext);
-  const [isSelected, setIsSelected] = useState(false);
-
-  function toggleGameInfo(isOpen) {
-    setIsSelected(!isOpen);
-  }
+  const [gameModal, setGameModal] = useState(false);
 
   function increment() {
     setCount(count + 1);
@@ -41,26 +37,28 @@ function Product({ id, name, img, price, stock }) {
   }
 
   return (
-    <Card onClick={() => toggleGameInfo(isSelected)}>
-      <h2>{name}</h2>
-      <Image src={img} alt={name} />
-      <BoxFooter>
-        <div>
-          <h3>{`Price: R$ ${price.toString().substr(1)}`}</h3>
-          <BoxAdd>
-            <SubtractCircle size="20px" color="#fff" onClick={decrement} />
-            <p>{count}</p>
-            <AiOutlinePlusCircle size="20px" color="#fff" onClick={increment} />
-          </BoxAdd>
-        </div>
-        <h3>{`Stock: ${stock}`}</h3>
-      </BoxFooter>
-      {isSelected ? (
-        <ProductModal id={id} toggleGameInfo={toggleGameInfo} />
-      ) : (
-        ""
-      )}
-    </Card>
+    <>
+      <Card onClick={() => setGameModal(true)}>
+        <h2>{name}</h2>
+        <Image src={img} alt={name} />
+        <BoxFooter>
+          <div>
+            <h3>{`Price: R$ ${price.toString().substr(1)}`}</h3>
+            <BoxAdd>
+              <SubtractCircle size="20px" color="#fff" onClick={decrement} />
+              <p>{count}</p>
+              <AiOutlinePlusCircle
+                size="20px"
+                color="#fff"
+                onClick={increment}
+              />
+            </BoxAdd>
+          </div>
+          <h3>{`Stock: ${stock}`}</h3>
+        </BoxFooter>
+      </Card>
+      <ProductModal id={id} gameModal={gameModal} setGameModal={setGameModal} />
+    </>
   );
 }
 

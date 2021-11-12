@@ -4,13 +4,28 @@ import { listProductInfo } from "../../services/API";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { SubtractCircle } from "grommet-icons";
 import { ProductsContext } from "../../contexts/ProductsContext";
+import Modal from "react-modal";
 import Loader from "react-loader-spinner";
 
-export default function ProductModal({ id, toggleGameInfo }) {
+Modal.setAppElement(document.getElementById("root"));
+export default function ProductModal({ id, gameModal, setGameModal }) {
   const [count, setCount] = useState(0);
   const [game, setGame] = useState({});
   const { products, setProducts } = useContext(ProductsContext);
   const userInfo = JSON.parse(localStorage.getItem("user"));
+
+  const customStyles = {
+    overlay: { background: "rgba(255, 255, 255, 0.9)" },
+    content: {
+      top: "15vh",
+      left: "10vw",
+      width: "70vw",
+      height: "70vh",
+      background: "#333333",
+      borderRadius: "12px",
+      boxShadow: " 4px 4px 4px rgba(0, 0, 0, 0.25)",
+    },
+  };
 
   function increment() {
     setCount(count + 1);
@@ -38,6 +53,8 @@ export default function ProductModal({ id, toggleGameInfo }) {
     }
   }
 
+  function addToCart() {}
+
   function getGameInfo() {
     listProductInfo({ token: userInfo.token, id })
       .then((res) => {
@@ -51,7 +68,7 @@ export default function ProductModal({ id, toggleGameInfo }) {
   useEffect(getGameInfo, []);
 
   return (
-    <Background>
+    <Modal isOpen={gameModal} style={customStyles}>
       <Container>
         {!game.name ? (
           <Loader type="ThreeDots" color="#FFFFFF" size="400" />
@@ -85,23 +102,13 @@ export default function ProductModal({ id, toggleGameInfo }) {
               </BoxAdd>
               <button>Add to cart</button>
             </PurchaseBox>
-            <CloseButton onClick={toggleGameInfo()}>x</CloseButton>
+            <CloseButton onClick={() => setGameModal(false)}>x</CloseButton>
           </>
         )}
       </Container>
-    </Background>
+    </Modal>
   );
 }
-
-const Background = styled.div`
-  position: fixed;
-  z-index: 6;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(128, 128, 128, 0.5);
-`;
 
 const Container = styled.div`
   position: fixed;
@@ -120,8 +127,8 @@ const Container = styled.div`
   align-items: center;
 
   img {
-    width: 300px;
-    height: 420px;
+    width: 21vw;
+    height: 55vh;
     border-radius: 8px;
     box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
   }
@@ -137,7 +144,7 @@ const Border = styled.div`
 `;
 
 const InfoBox = styled.div`
-  height: 420px;
+  height: 55vh;
   color: #ffffff;
 
   h1 {
