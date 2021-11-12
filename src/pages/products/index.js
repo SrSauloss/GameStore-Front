@@ -4,6 +4,7 @@ import Product from "../../components/product";
 import { listProducts } from "../../services/API";
 import Loader from "react-loader-spinner";
 import Footer from "../../components/footer";
+import Top from "../../components/header";
 
 function Products() {
   const [games, setGames] = useState(null);
@@ -23,6 +24,7 @@ function Products() {
   return (
     <>
       <Container>
+        <Top />
         <BoxProducts>
           {games ? (
             games.map((game) => (
