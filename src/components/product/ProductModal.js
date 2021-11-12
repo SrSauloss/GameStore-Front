@@ -8,11 +8,10 @@ import Modal from "react-modal";
 import Loader from "react-loader-spinner";
 
 Modal.setAppElement(document.getElementById("root"));
-export default function ProductModal({ id, gameModal, setGameModal }) {
+export default function ProductModal({ id, gameModal, setGameModal, token }) {
   const [count, setCount] = useState(0);
   const [game, setGame] = useState({});
   const { products, setProducts } = useContext(ProductsContext);
-  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   const customStyles = {
     overlay: { background: "rgba(255, 255, 255, 0.9)" },
@@ -53,7 +52,7 @@ export default function ProductModal({ id, gameModal, setGameModal }) {
   }
 
   function getGameInfo() {
-    listProductInfo({ token: userInfo.token, id })
+    listProductInfo({ token, id })
       .then((res) => {
         setGame(res.data.data);
       })

@@ -3,7 +3,7 @@ import { Card, Image, BoxFooter } from "./style";
 import ProductModal from "./ProductModal";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
-function Product({ id, name, img, price, stock }) {
+function Product({ id, name, img, price, stock, token }) {
   const [gameModal, setGameModal] = useState(false);
 
   return (
@@ -22,7 +22,12 @@ function Product({ id, name, img, price, stock }) {
           </button>
         </BoxFooter>
       </Card>
-      <ProductModal id={id} gameModal={gameModal} setGameModal={setGameModal} />
+      <ProductModal
+        id={id}
+        gameModal={gameModal}
+        setGameModal={setGameModal}
+        token={token}
+      />
     </>
   );
 }
