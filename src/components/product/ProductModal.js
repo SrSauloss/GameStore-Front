@@ -18,7 +18,7 @@ export default function ProductModal({ id, gameModal, setGameModal }) {
     overlay: { background: "rgba(255, 255, 255, 0.9)" },
     content: {
       top: "15vh",
-      left: "10vw",
+      left: "14vw",
       width: "70vw",
       height: "70vh",
       background: "#333333",
@@ -28,32 +28,29 @@ export default function ProductModal({ id, gameModal, setGameModal }) {
   };
 
   function increment() {
-    setCount(count + 1);
-    let modify = products.filter((product) => product.name !== game.name);
-    setProducts([
-      ...modify,
-      { name: game.name, price: game.price.substr(1), amount: count + 1 },
-    ]);
+    if (count !== game.stock) {
+      setCount(count + 1);
+    }
   }
 
   function decrement() {
     if (count !== 0) {
-      if (count === 1) {
-        setProducts(products.filter((product) => product.name !== game.name));
-        setCount(0);
-        return;
-      }
-
-      let modify = products.filter((product) => product.name !== game.name);
-      setProducts([
-        ...modify,
-        { name: game.name, price: game.price.substr(1), amount: count - 1 },
-      ]);
       setCount(count - 1);
     }
   }
 
-  function addToCart() {}
+  function addToCart() {
+    if (count === 0) {
+      setProducts(products.filter((product) => product.name !== game.name));
+    } else {
+      let modify = products.filter((product) => product.name !== game.name);
+      setProducts([
+        ...modify,
+        { name: game.name, price: game.price.substr(1), amount: count },
+      ]);
+    }
+    setGameModal(false);
+  }
 
   function getGameInfo() {
     listProductInfo({ token: userInfo.token, id })
@@ -89,18 +86,18 @@ export default function ProductModal({ id, gameModal, setGameModal }) {
                 <SubtractCircle
                   size="20px"
                   color="#1877f2"
+                  cursor="pointer"
                   onClick={decrement}
-                  className="icon"
                 />
                 <p>{count}</p>
                 <AiOutlinePlusCircle
                   size="20px"
                   color="#1877f2"
+                  cursor="pointer"
                   onClick={increment}
-                  className="icon"
                 />
               </BoxAdd>
-              <button>Add to cart</button>
+              <button onClick={addToCart}>Add to cart</button>
             </PurchaseBox>
             <CloseButton onClick={() => setGameModal(false)}>x</CloseButton>
           </>
@@ -114,7 +111,7 @@ const Container = styled.div`
   position: fixed;
   z-index: 7;
   top: 15vh;
-  left: 10vw;
+  left: 14vw;
   width: 70vw;
   height: 70vh;
   background-color: #333333;
@@ -131,6 +128,18 @@ const Container = styled.div`
     height: 55vh;
     border-radius: 8px;
     box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    overflow-y: scroll;
+
+    img {
+      width: 180px;
+      height: 260px;
+      margin-top: 280px;
+      margin-bottom: 20px;
+    }
   }
 `;
 
@@ -156,6 +165,9 @@ const InfoBox = styled.div`
     font-size: 20px;
     margin-top: 30px;
   }
+  @media (max-width: 1000px) {
+    text-align: center;
+  }
 `;
 
 const PurchaseBox = styled.div`
@@ -166,6 +178,7 @@ const PurchaseBox = styled.div`
   h2 {
     font-size: 30px;
     padding-top: 15px;
+    font-weight: 700;
   }
 
   h3 {
@@ -176,7 +189,7 @@ const PurchaseBox = styled.div`
   button {
     width: 180px;
     height: 50px;
-    background: ${(props) => (props.isLoading ? "#569bf5" : "#1877F2")};
+    background: #1877f2;
     border: none;
     border-radius: 6px;
     font-family: "Oswald", sans-serif;
