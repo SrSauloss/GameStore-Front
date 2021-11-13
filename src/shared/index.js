@@ -99,6 +99,59 @@ const ButtonsCart = styled.div`
   }
 `;
 
+const ContainerHome = styled.div`
+  display: flex;
+  color: #fff;
+  padding-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 400px;
+  background: yellow;
+  overflow-x: scroll;
+  box-shadow: inset 0 0 1em gold, 0 0 1em red;
+`;
+
+const Describe = styled.div`
+  color: #fff;
+  font-family: "Oswald", sans-serif;
+  font-size: 30px;
+  margin-right: 20px;
+  text-align: center;
+  margin-top: 20px;
+  @media (max-width: 900px) {
+    font-size: 23px;
+  }
+`;
+
+const HeaderHome = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  background: #000;
+  h1 {
+    font-size: 100px;
+    font-family: "Passion One", cursive;
+    margin-left: 20px;
+  }
+  a {
+    color: #fff;
+    font-family: "Oswald", sans-serif;
+    font-size: 35px;
+    margin-right: 20px;
+  }
+  @media (max-width: 900px) {
+    height: 50px;
+    h1 {
+      font-size: 30px;
+    }
+    a {
+      font-size: 20px;
+    }
+  }
+`;
+
 export {
   Container,
   BoxProducts,
@@ -106,4 +159,7 @@ export {
   InfoCart,
   BoxCart,
   ButtonsCart,
+  ContainerHome,
+  Describe,
+  HeaderHome,
 };
