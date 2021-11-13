@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
+import CardHome from "../../components/cardHome";
 import Footer from "../../components/footer";
 import { listProducts } from "../../services/API";
-import { ContainerHome, Describe, HeaderHome } from "../../shared";
+import { ContainerHome, Describe, HeaderHome, Loading } from "../../shared";
 
 function Home() {
   const [examples, setExamples] = useState(null);
-  const history = useHistory();
 
   function loadExamples() {
     listProducts()
@@ -20,7 +20,6 @@ function Home() {
   }
 
   useEffect(loadExamples, []);
-  console.log(examples);
 
   return (
     <>
@@ -38,37 +37,28 @@ function Home() {
         </h1>
       </Describe>
       <ContainerHome>
-        {examples?.length > 0 ? (
+        {examples ? (
           <>
-            <CardHome>
-              <img src={examples[0].image} alt={examples[0]?.name} />
-            </CardHome>
-            <CardHome>
-              <img src={examples[0].image} alt={examples[0]?.name} />
-            </CardHome>
-            <CardHome>
-              <img src={examples[0].image} alt={examples[0]?.name} />
-            </CardHome>
-            <CardHome>
-              <img src={examples[0].image} alt={examples[0]?.name} />
-            </CardHome>
+            {examples.map((example) => (
+              <Link to="sign-in" key={example.id}>
+                <CardHome image={example.image} name={example.name} />
+              </Link>
+            ))}
           </>
         ) : (
-          ""
+          <Loading>
+            <Loader
+              type="ThreeDots"
+              color="#FFF"
+              width="300px"
+              height="400px"
+            />
+          </Loading>
         )}
       </ContainerHome>
       <Footer />
     </>
   );
 }
-
-const CardHome = styled.div`
-  background: red;
-  margin-left: 10px;
-  img {
-    width: 400px;
-    height: 400px;
-  }
-`;
 
 export default Home;

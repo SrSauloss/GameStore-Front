@@ -106,7 +106,7 @@ const ContainerHome = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
   height: 400px;
-  background: yellow;
+  background: #000;
   overflow-x: scroll;
   box-shadow: inset 0 0 1em gold, 0 0 1em red;
 `;
@@ -152,6 +152,12 @@ const HeaderHome = styled.div`
   }
 `;
 
+const Loading = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
 export {
   Container,
   BoxProducts,
@@ -162,4 +168,5 @@ export {
   ContainerHome,
   Describe,
   HeaderHome,
+  Loading,
 };
