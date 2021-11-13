@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Card = styled.div`
   background: #000;
-  width: 250px;
+  width: 245px;
   height: 360px;
   border-radius: 5px;
   margin: 0 0 5px 5px;
@@ -74,6 +74,11 @@ const BoxFooter = styled.div`
     font-size: 12px;
     justify-content: space-between;
     h3 {
+      font-size: 12px;
+    }
+    button {
+      width: 50px;
+      height: 31px;
       font-size: 12px;
     }
   }

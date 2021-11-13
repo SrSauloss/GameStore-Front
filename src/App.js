@@ -5,6 +5,8 @@ import SignIn from "./pages/signIn/SignIn";
 import Products from "./pages/products";
 import { ProductsContext } from "./contexts/ProductsContext";
 import { useState } from "react";
+import Cart from "./pages/cart";
+import Home from "./pages/home";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -14,6 +16,9 @@ function App() {
       <ProductsContext.Provider value={{ products, setProducts }}>
         <GlobalStyle />
         <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
           <Route exact path="/sign-up">
             <SignUp />
           </Route>
@@ -22,6 +27,9 @@ function App() {
           </Route>
           <Route exact path="/products">
             <Products />
+          </Route>
+          <Route exact path="/cart">
+            <Cart />
           </Route>
         </Switch>
       </ProductsContext.Provider>

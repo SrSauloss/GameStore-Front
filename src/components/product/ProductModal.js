@@ -8,10 +8,16 @@ import Modal from "react-modal";
 import Loader from "react-loader-spinner";
 
 Modal.setAppElement(document.getElementById("root"));
-export default function ProductModal({ id, gameModal, setGameModal, token }) {
-  const [count, setCount] = useState(0);
-  const [game, setGame] = useState({});
+export default function ProductModal({
+  id,
+  gameModal,
+  setGameModal,
+  token,
+  amount,
+}) {
   const { products, setProducts } = useContext(ProductsContext);
+  const [game, setGame] = useState({});
+  const [count, setCount] = useState(amount || 0);
 
   const customStyles = {
     overlay: { background: "rgba(255, 255, 255, 0.9)" },
@@ -45,13 +51,19 @@ export default function ProductModal({ id, gameModal, setGameModal, token }) {
       let modify = products.filter((product) => product.name !== game.name);
       setProducts([
         ...modify,
-        { name: game.name, price: game.price.substr(1), amount: count },
+        {
+          name: game.name,
+          price: game.price.substr(1),
+          image: game.image,
+          amount: count,
+          id: game.id,
+        },
       ]);
     }
     setGameModal(false);
   }
 
-  function getGameInfo() {
+  useEffect(() => {
     listProductInfo({ token, id })
       .then((res) => {
         setGame(res.data.data);
@@ -59,9 +71,7 @@ export default function ProductModal({ id, gameModal, setGameModal, token }) {
       .catch((err) => {
         alert("Erro ao acessar pagamentos");
       });
-  }
-
-  useEffect(getGameInfo, []);
+  }, [id, token]);
 
   return (
     <Modal isOpen={gameModal} style={customStyles}>
