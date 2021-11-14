@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Card, Image, BoxFooter } from "./style";
 import ProductModal from "./ProductModal";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { ProductsContext } from "../../contexts/ProductsContext";
 
-function Product({ id, name, img, price, stock, token }) {
+function Product({ id, name, img, price, stock, token, amount }) {
   const [gameModal, setGameModal] = useState(false);
+  const { products } = useContext(ProductsContext);
+
+  const prod = products.filter((product) => {
+    return product.name === name;
+  });
 
   return (
     <>
@@ -27,6 +33,7 @@ function Product({ id, name, img, price, stock, token }) {
         gameModal={gameModal}
         setGameModal={setGameModal}
         token={token}
+        amount={prod[0]?.amount}
       />
     </>
   );

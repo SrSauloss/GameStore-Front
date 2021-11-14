@@ -15,11 +15,16 @@ function Top() {
     history.push("/sign-in");
   }
 
+  function cart(e) {
+    e.preventDefault();
+    history.push("/cart");
+  }
+
   return (
     <Container>
       <h1>GameStore</h1>
       <Infos color={products.length > 0 ? "#0f0" : "#fff"}>
-        <AiOutlineShoppingCart size="30" />
+        <AiOutlineShoppingCart size="30" onClick={cart} />
         <p>{products.length}</p>
         <h6 onClick={logout}>Logout</h6>
       </Infos>
