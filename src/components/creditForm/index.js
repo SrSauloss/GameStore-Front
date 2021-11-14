@@ -1,13 +1,18 @@
 import Cards from "react-credit-cards";
 import { useState } from "react";
 import { FormPayment, Container } from "./style";
+import { useContext } from "react";
+import { ProductsContext } from "../../contexts/ProductsContext";
 import dayjs from "dayjs";
+import { postTransaction } from "../../services/API";
 
 function CreditForm() {
+  const { products } = useContext(ProductsContext);
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
   const [cvc, setCvc] = useState("");
   const [expiry, setExpiry] = useState("");
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   function makePayement(e) {
     e.preventDefault();
@@ -28,10 +33,23 @@ function CreditForm() {
       return;
     }
 
-    console.log(number);
-    console.log(name);
-    console.log(expiry);
-    console.log(cvc);
+    let total = 0;
+    products.forEach((item) => (total += item.amount * item.price));
+    const games_ids = products.map((product) => product.id);
+
+    const body = {
+      price: total,
+      games_ids: games_ids,
+      date: dayjs().format("YYYY-MM-DD"),
+    }; /*
+
+    postTransaction({ token: userInfo.token, body })
+      .then((res) => {
+        console.log("passou");
+      })
+      .catch((err) => {
+        alert("Erro ao realizar pagamento");
+      });*/
   }
 
   return (
