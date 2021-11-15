@@ -1,6 +1,7 @@
 import Cards from "react-credit-cards";
 import { useState } from "react";
-import { FormPayment, Container } from "./style";
+import Loader from "react-loader-spinner";
+import { FormPayment, Container, ScreenSucess, BoxMessage } from "./style";
 import { useContext } from "react";
 import { ProductsContext } from "../../contexts/ProductsContext";
 import dayjs from "dayjs";
@@ -12,6 +13,7 @@ function CreditForm() {
   const [name, setName] = useState("");
   const [cvc, setCvc] = useState("");
   const [expiry, setExpiry] = useState("");
+  const [sucess, setSucess] = useState(false);
   const userInfo = JSON.parse(localStorage.getItem("user"));
 
   function makePayement(e) {
@@ -38,18 +40,23 @@ function CreditForm() {
     const games_ids = products.map((product) => product.id);
 
     const body = {
-      price: total,
+      //price: total,
       games_ids: games_ids,
       date: dayjs().format("YYYY-MM-DD"),
-    }; /*
-
+    };
+    console.log(body);
     postTransaction({ token: userInfo.token, body })
       .then((res) => {
         console.log("passou");
       })
       .catch((err) => {
         alert("Erro ao realizar pagamento");
-      });*/
+      });
+
+    setSucess(true);
+    setTimeout(() => {
+      setSucess(false);
+    }, 2000);
   }
 
   return (
@@ -79,6 +86,22 @@ function CreditForm() {
           />
           <button>make payment</button>
         </FormPayment>
+        {sucess ? (
+          <ScreenSucess>
+            <BoxMessage>
+              <h1>successful payment</h1>
+              <p>Please wait you will be redirected to the product page</p>
+              <Loader
+                type="ThreeDots"
+                color="#00a000"
+                width="300px"
+                height="400px"
+              />
+            </BoxMessage>
+          </ScreenSucess>
+        ) : (
+          ""
+        )}
       </Container>
     </>
   );

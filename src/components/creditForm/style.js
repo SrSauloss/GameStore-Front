@@ -1,10 +1,35 @@
 import styled from "styled-components";
 import "react-credit-cards/es/styles-compiled.css";
 
+const ScreenSucess = styled.div`
+  position: absolute;
+  background: red;
+  width: 100%;
+  height: 100%;
+`;
+const BoxMessage = styled.div`
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #d4d4d4;
+  font-family: "Oswald", sans-serif;
+  h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 22px;
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  position: relative;
   @media (max-width: 900px) {
     width: 95%;
     flex-direction: column;
@@ -52,4 +77,4 @@ const FormPayment = styled.form`
   }
 `;
 
-export { FormPayment, Container };
+export { FormPayment, Container, ScreenSucess, BoxMessage };
