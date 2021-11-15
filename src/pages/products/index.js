@@ -1,18 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { BoxProducts, Container } from "../../shared";
 import Product from "../../components/product";
 import { listProducts } from "../../services/API";
 import Loader from "react-loader-spinner";
 import Footer from "../../components/footer";
 import Top from "../../components/header";
-import { useHistory } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
 
 function Products() {
   const [games, setGames] = useState(null);
-  const userInfo = JSON.parse(localStorage.getItem("user"));
-  const history = useHistory();
-
-  if (!userInfo) history.push("/sign-in");
+  const { userInfo } = useContext(UserContext);
 
   function loadGames() {
     listProducts()
