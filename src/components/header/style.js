@@ -32,6 +32,10 @@ const Infos = styled.div`
   font-family: "Oswald", sans-serif;
   font-size: 25px;
   cursor: pointer;
+  h2 {
+    cursor: initial;
+    margin-right: 15px;
+  }
   h6 {
     text-align: center;
     cursor: pointer;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { signIn } from "../../services/API";
 import {
@@ -8,12 +8,14 @@ import {
   StyledForm,
 } from "../../shared/SignInUpStyle";
 import Loader from "react-loader-spinner";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
   const history = useHistory();
 
   const login = (e) => {
@@ -29,6 +31,7 @@ export default function SignIn() {
       .then((res) => {
         const user = JSON.stringify(res.data);
         localStorage.setItem("user", user);
+        setUserInfo(res.data);
 
         setEmail("");
         setPassword("");

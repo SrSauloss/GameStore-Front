@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { BoxProducts, Container } from "../../shared";
 import Product from "../../components/product";
 import { listProducts } from "../../services/API";
 import Loader from "react-loader-spinner";
 import Footer from "../../components/footer";
 import Top from "../../components/header";
+import { UserContext } from "../../contexts/UserContext";
 
 function Products() {
   const [games, setGames] = useState(null);
-  const userInfo = JSON.parse(localStorage.getItem("user"));
+  const { userInfo } = useContext(UserContext);
 
   function loadGames() {
     listProducts()
