@@ -4,10 +4,11 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   max-height: 100%;
-
+  position: relative;
   @media (max-width: 900px) {
     display: flex;
     flex-direction: column;
+    justify-content: center;
   }
 `;
 
@@ -20,6 +21,7 @@ const BoxProducts = styled.div`
   height: 95vh;
 
   @media (max-width: 900px) {
+    margin-top: 20px;
     width: 92%;
     height: auto;
   }

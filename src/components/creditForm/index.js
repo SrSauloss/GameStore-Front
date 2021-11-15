@@ -59,7 +59,7 @@ function CreditForm() {
         setTimeout(() => {
           setSucess(false);
           setProducts([]);
-          history.push("/products");
+          history.push("/products/all");
         }, 2000);
         setLoading(false);
       })
