@@ -25,7 +25,7 @@ function Order() {
             ))}
             <h2>
               <span>Total purchase: </span>
-              {`R$ ${total}`}
+              {`R$ ${total.toFixed(2)}`}
             </h2>
           </>
         ) : (

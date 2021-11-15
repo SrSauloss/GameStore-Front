@@ -1,5 +1,6 @@
 import Cards from "react-credit-cards";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { FormPayment, Container, ScreenSucess, BoxMessage } from "./style";
 import { useContext } from "react";
@@ -8,18 +9,21 @@ import dayjs from "dayjs";
 import { postTransaction } from "../../services/API";
 
 function CreditForm() {
-  const { products } = useContext(ProductsContext);
+  const history = useHistory();
+  const { products, setProducts } = useContext(ProductsContext);
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
   const [cvc, setCvc] = useState("");
   const [expiry, setExpiry] = useState("");
   const [sucess, setSucess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const userInfo = JSON.parse(localStorage.getItem("user"));
 
   function makePayement(e) {
     e.preventDefault();
     let pattern =
       "^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35d{3})d{11})$";
+
     if (!number.match(pattern)) {
       alert("Insert a valid card");
       return;
@@ -35,28 +39,31 @@ function CreditForm() {
       return;
     }
 
+    setLoading(true);
     let total = 0;
     products.forEach((item) => (total += item.amount * item.price));
     const games_ids = products.map((product) => product.id);
 
     const body = {
-      //price: total,
+      price: total,
       games_ids: games_ids,
       date: dayjs().format("YYYY-MM-DD"),
     };
-    console.log(body);
+
     postTransaction({ token: userInfo.token, body })
       .then((res) => {
-        console.log("passou");
+        setSucess(true);
+        setTimeout(() => {
+          setSucess(false);
+          setProducts([]);
+          history.push("/products");
+        }, 2000);
+        setLoading(false);
       })
       .catch((err) => {
         alert("Erro ao realizar pagamento");
+        setLoading(false);
       });
-
-    setSucess(true);
-    setTimeout(() => {
-      setSucess(false);
-    }, 2000);
   }
 
   return (
@@ -84,7 +91,18 @@ function CreditForm() {
             onChange={(e) => setCvc(e.target.value)}
             required
           />
-          <button>make payment</button>
+          <button disabled={loading}>
+            {loading ? (
+              <Loader
+                type="ThreeDots"
+                color="#fff"
+                width="202px"
+                height="20px"
+              />
+            ) : (
+              "make payment"
+            )}
+          </button>
         </FormPayment>
         {sucess ? (
           <ScreenSucess>
