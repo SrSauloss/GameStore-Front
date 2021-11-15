@@ -160,11 +160,6 @@ const Loading = styled.div`
   justify-content: center;
 `;
 
-const Main = styled.div`
-  background: yellow;
-  display: flex;
-`;
-
 export {
   Container,
   BoxProducts,
@@ -176,5 +171,4 @@ export {
   Describe,
   HeaderHome,
   Loading,
-  Main,
 };

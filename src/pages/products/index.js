@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { BoxProducts, Container, Main } from "../../shared";
+import { BoxProducts, Container } from "../../shared";
 import Product from "../../components/product";
-import { listProducts } from "../../services/API";
+import { listProducts, listProductsCategory } from "../../services/API";
 import Loader from "react-loader-spinner";
 import Footer from "../../components/footer";
 import Top from "../../components/header";
@@ -12,21 +12,29 @@ import SideBar from "../../components/sideBar";
 function Products() {
   const [games, setGames] = useState(null);
   const { userInfo } = useContext(UserContext);
-  const { category } = useParams();
-
-  console.log(category);
+  const { id } = useParams();
 
   function loadGames() {
-    listProducts()
-      .then((res) => {
-        setGames(res.data.data);
-      })
-      .catch((err) => {
-        alert("Erro ao acessar pagamentos");
-      });
+    if (id === "all") {
+      listProducts()
+        .then((res) => {
+          setGames(res.data.data);
+        })
+        .catch((err) => {
+          alert("Erro ao acessar produtos");
+        });
+    } else {
+      listProductsCategory({ token: userInfo.token, id })
+        .then((res) => {
+          setGames(res.data);
+        })
+        .catch((err) => {
+          alert("Erro ao acessar produtos");
+        });
+    }
   }
 
-  useEffect(loadGames, []);
+  useEffect(loadGames, [id]);
 
   return (
     <Container>

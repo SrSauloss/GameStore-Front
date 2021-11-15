@@ -23,15 +23,15 @@ function App() {
           <GlobalStyle />
           <Switch>
             <Route exact path="/">
-              {userInfo ? <Redirect to="/products" /> : <Home />}
+              {userInfo ? <Redirect to="/products/all" /> : <Home />}
             </Route>
             <Route exact path="/sign-up">
               <SignUp />
             </Route>
             <Route exact path="/sign-in">
-              {userInfo ? <Redirect to="/products" /> : <SignIn />}
+              {userInfo ? <Redirect to="/products/all" /> : <SignIn />}
             </Route>
-            <Route exact path="/products/:category">
+            <Route exact path="/products/:id">
               {userInfo ? <Products /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/cart">

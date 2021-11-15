@@ -21,20 +21,24 @@ function SideBar() {
   }
 
   useEffect(loadCategories, []);
-  console.log(categories);
 
   return (
     <Container>
       <h4>Categories</h4>
       {categories ? (
-        categories.map((category) => (
-          <CardCategory
-            key={category.id}
-            onClick={() => history.push(`/products/${category.name}`)}
-          >
-            <h5>{category.name}</h5>
+        <>
+          <CardCategory onClick={() => history.push(`/products/all`)}>
+            <h5>All Games</h5>
           </CardCategory>
-        ))
+          {categories.map((category) => (
+            <CardCategory
+              key={category.id}
+              onClick={() => history.push(`/products/${category.id}`)}
+            >
+              <h5>{category.name} Games </h5>
+            </CardCategory>
+          ))}
+        </>
       ) : (
         <BoxLoading>
           <Loader type="ThreeDots" color="#FFFFFF" size="200" />
