@@ -42,7 +42,10 @@ function CreditForm() {
     setLoading(true);
     let total = 0;
     products.forEach((item) => (total += item.amount * item.price));
-    const games_ids = products.map((product) => product.id);
+    const games_ids = products.map((product) => ({
+      id: product.id,
+      amount: product.amount,
+    }));
 
     const body = {
       price: total,
