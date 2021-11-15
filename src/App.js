@@ -31,7 +31,7 @@ function App() {
             <Route exact path="/sign-in">
               {userInfo ? <Redirect to="/products" /> : <SignIn />}
             </Route>
-            <Route exact path="/products">
+            <Route exact path="/products/:category">
               {userInfo ? <Products /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/cart">

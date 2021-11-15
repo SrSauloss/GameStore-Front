@@ -1,18 +1,45 @@
 import styled from "styled-components";
+import { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import Loader from "react-loader-spinner";
+import { UserContext } from "../../contexts/UserContext";
+import { listCategories } from "../../services/API";
 
 function SideBar() {
+  const { userInfo } = useContext(UserContext);
+  const [categories, setCategories] = useState(null);
+  const history = useHistory();
+
+  function loadCategories() {
+    listCategories({ token: userInfo.token })
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((err) => {
+        alert("Erro ao acessar pagamentos");
+      });
+  }
+
+  useEffect(loadCategories, []);
+  console.log(categories);
+
   return (
     <Container>
       <h4>Categories</h4>
-      <CardCategory>
-        <h5>All Games</h5>
-      </CardCategory>
-      <CardCategory>
-        <h5>Fps Games</h5>
-      </CardCategory>
-      <CardCategory>
-        <h5>War Games</h5>
-      </CardCategory>
+      {categories ? (
+        categories.map((category) => (
+          <CardCategory
+            key={category.id}
+            onClick={() => history.push(`/products/${category.name}`)}
+          >
+            <h5>{category.name}</h5>
+          </CardCategory>
+        ))
+      ) : (
+        <BoxLoading>
+          <Loader type="ThreeDots" color="#FFFFFF" size="200" />
+        </BoxLoading>
+      )}
     </Container>
   );
 }
@@ -55,6 +82,12 @@ const CardCategory = styled.div`
     width: 97%;
     position: static;
   }
+`;
+
+const BoxLoading = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 export default SideBar;

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 import { BoxProducts, Container, Main } from "../../shared";
 import Product from "../../components/product";
 import { listProducts } from "../../services/API";
@@ -11,6 +12,9 @@ import SideBar from "../../components/sideBar";
 function Products() {
   const [games, setGames] = useState(null);
   const { userInfo } = useContext(UserContext);
+  const { category } = useParams();
+
+  console.log(category);
 
   function loadGames() {
     listProducts()
