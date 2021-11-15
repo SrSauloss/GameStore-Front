@@ -21,6 +21,11 @@ function Cart() {
     setProducts([]);
   }
 
+  function finishOrder(e) {
+    e.preventDefault();
+    history.push("/payment");
+  }
+
   return (
     <>
       <InfoCart>
@@ -44,7 +49,7 @@ function Cart() {
                   />
                 ))}
                 <ButtonsCart>
-                  <button>finalize order</button>
+                  <button onClick={finishOrder}>finalize order</button>
                   <button onClick={clearCart}>clear cart</button>
                 </ButtonsCart>
               </>

@@ -8,6 +8,7 @@ import { useState } from "react";
 import Cart from "./pages/cart";
 import Home from "./pages/home";
 import { UserContext } from "./contexts/UserContext";
+import Payment from "./pages/payment";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -35,6 +36,9 @@ function App() {
             </Route>
             <Route exact path="/cart">
               {userInfo ? <Cart /> : <Redirect to="/" />}
+            </Route>
+            <Route exact path="/payment">
+              {userInfo ? <Payment /> : <Redirect to="/" />}
             </Route>
           </Switch>
         </ProductsContext.Provider>
