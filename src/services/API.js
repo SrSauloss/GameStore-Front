@@ -11,4 +11,7 @@ const signIn = ({ body }) => axios.post(`${API_URL}/sign-in`, body);
 const listProducts = () => axios.get(`${API_URL}/product/all`);
 const listProductInfo = ({ token, id }) =>
   axios.get(`${API_URL}/product/${id}`, createHeaders(token));
-export { signUp, signIn, listProducts, listProductInfo };
+const postTransaction = ({ token, body }) =>
+  axios.post(`${API_URL}/product/transaction/new`, body, createHeaders(token));
+
+export { signUp, signIn, listProducts, listProductInfo, postTransaction };

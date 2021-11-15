@@ -25,14 +25,6 @@ const InfosCard = styled.div`
   padding: 5px 0 5px 0;
   font-family: "Oswald", sans-serif;
   font-size: 20px;
-
-  button {
-    width: 120px;
-    background: red;
-    border: none;
-    border-radius: 5px;
-    color: #fafafa;
-  }
 `;
 
 export { Card, InfosCard };
