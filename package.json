@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
+    "faker-br": "^0.4.1",
     "grommet-icons": "^4.6.2",
     "grommet-styles": "^0.2.0",
     "react": "^16.0",
