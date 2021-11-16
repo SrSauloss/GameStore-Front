@@ -39,7 +39,7 @@ function Products() {
   return (
     <Container>
       <Top />
-      <SideBar />
+      <SideBar id={id}/>
       <BoxProducts>
         {games ? (
           games.map((game) => (
