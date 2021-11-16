@@ -1,48 +1,39 @@
-import styled from "styled-components";
+import { useContext } from "react";
+import { ProductsContext } from "../../contexts/ProductsContext";
+import { Container, Infos, Box } from "./style";
 
-function Order({ name, price, img, amount }) {
+function Order() {
+  const { products } = useContext(ProductsContext);
+  let total = 0;
+  products.forEach((item) => (total += item.amount * item.price));
+
   return (
     <>
-      <Card>
-        <img src={img} alt={name} />
-        <InfosCard>
-          <p>Title: {name}</p>
-          <p>Price: R$ {price}</p>
-          <p>Amount: {amount}</p>
-          <p>Total: {(amount * price).toFixed(2)}</p>
-        </InfosCard>
-      </Card>
+      <Box>
+        {products.length > 0 ? (
+          <>
+            {products.map((product) => (
+              <Container key={product.id}>
+                <img src={product.image} alt={product.name} />
+                <Infos>
+                  <p>Title: {product.name}</p>
+                  <p>Price: R$ {product.price}</p>
+                  <p>Amount: {product.amount}</p>
+                  <p>Total: {(product.amount * product.price).toFixed(2)}</p>
+                </Infos>
+              </Container>
+            ))}
+            <h2>
+              <span>Total purchase: </span>
+              {`R$ ${total}`}
+            </h2>
+          </>
+        ) : (
+          <h6>You have no products to buy :(</h6>
+        )}
+      </Box>
     </>
   );
 }
-
-const Card = styled.div`
-  width: 100%;
-  margin: 10px 0 1px 10px;
-  display: flex;
-  border-radius: 5px;
-  img {
-    width: 80px;
-    height: 80px;
-  }
-`;
-
-const InfosCard = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 10px;
-  font-family: "Oswald", sans-serif;
-  font-size: 20px;
-  p {
-    width: 200px;
-  }
-  @media (max-width: 900px) {
-    font-size: 15px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
 
 export default Order;
