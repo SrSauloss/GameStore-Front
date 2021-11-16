@@ -41,10 +41,10 @@ function Payment() {
                   amount={product.amount}
                 />
               ))}
-              <h1>
+              <h2>
                 <span>Total purchase: </span>
                 {`R$ ${total}`}
-              </h1>
+              </h2>
             </>
           ) : (
             <h6>You haven't added anything to your cart yet :(</h6>
@@ -67,7 +67,6 @@ const FormPayment = styled.form`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  //flex-direction: column;
   input {
     width: 325px;
     border: none;
@@ -97,6 +96,10 @@ const FormPayment = styled.form`
     margin-bottom: 5px;
     margin-right: 5px;
   }
+  @media (max-width: 900px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const Container = styled.div`
@@ -107,8 +110,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   color: #fff;
-  position: relative;
-  h1 {
+  h2 {
     font-family: "Oswald", sans-serif;
     font-size: 30px;
     margin: 10px 0;
@@ -116,11 +118,6 @@ const Container = styled.div`
   }
   span {
     margin-right: 5%;
-  }
-  @media (max-width: 900px) {
-    h1 {
-      font-size: 30px;
-    }
   }
 `;
 
@@ -143,6 +140,10 @@ const Box = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    h2 {
+      width: 300px;
+      font-size: 20px;
+    }
   }
 `;
 
